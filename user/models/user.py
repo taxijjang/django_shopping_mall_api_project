@@ -41,8 +41,7 @@ class User(TimestampBaseModel, AbstractBaseUser):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'name'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
 
     def __str__(self):
         return self.name
