@@ -5,15 +5,11 @@ from django.urls import re_path
 from django.urls import include
 
 from rest_framework import permissions
-from rest_framework_simplejwt import views as jwt_views
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # simple jwt token
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 
     # user
     path('users/', include('user.urls')),
