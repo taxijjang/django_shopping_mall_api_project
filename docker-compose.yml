@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/code
+      - ./nginx:/etc/nginx/conf.d
+      - ./staticfiles:/static
+    depends_on:
+      - django
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: djnago
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+    - .:/code
+    environment:
+      - DEV_NAME=${DEV_NAME}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - PASSWORD=${PASSWORD}
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - USER=${USER}
