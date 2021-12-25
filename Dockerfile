@@ -1,20 +1,19 @@
 FROM python:3.7.9
 
-
 RUN apt-get update
-
-WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+RUN mkdir /code
+COPY . /code
+WORKDIR /code
+
 RUN pip install --upgrade pip
-COPY ./requirements/requirements.txt /usr/src/app
-COPY ./requirements/requirements-service.txt /usr/src/app
-RUN pip install -r requirements-service.txt
+RUN pip install -r requirements/requirements-dev.txt
 
-COPY . /usr/src/app
+RUN python manage.py collectstatic --no-input --clear
 
-EXPOSE 8000
+#RUN mkdir -p run
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000", "--settings=config.settings.test"]
+#CMD gunicorn config.wsgi:application --bind unix:/code/run/gunicorn.sock --workers 4 --timeout=60 --log-file=-
