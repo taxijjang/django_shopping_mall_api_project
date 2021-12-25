@@ -9,10 +9,12 @@ RUN mkdir /code
 COPY . /code
 WORKDIR /code
 
+RUN mkdir /static
+
 RUN pip install --upgrade pip
 RUN pip install -r requirements/requirements-dev.txt
 
-RUN python manage.py collectstatic --no-input --clear
+RUN python manage.py collectstatic --noinput
 
 #RUN mkdir -p run
 
