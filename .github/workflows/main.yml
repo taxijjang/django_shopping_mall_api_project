@@ -14,9 +14,11 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
+    - name: Add env
+      run: export DEV_NAME=shopping-mall-dev
 #
 #        script: |
-#          export DEV_NAME=shopping-mall-dev
+
 #          export PASSWORD= ${{ secrets.PASSWORD }}
 #          export HOST=${{ secrets.HOST }}
 #          export PORT=${{ secrets.PORT }}
