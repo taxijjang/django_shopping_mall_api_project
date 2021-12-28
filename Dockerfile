@@ -1,4 +1,3 @@
-
 FROM python:3.7.9
 
 RUN apt-get update
@@ -13,6 +12,6 @@ WORKDIR /code
 RUN mkdir /static
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements/requirements-dev.txt
+RUN pip install --no-cache-dir -r requirements/requirements-dev.txt
 
 RUN python manage.py collectstatic --noinput
