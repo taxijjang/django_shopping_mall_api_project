@@ -15,11 +15,15 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
     - name: Add env
-      run: export DEV_NAME=shopping-mall-dev
+      run: |
+        env
+        export DEV_NAME=shopping-mall-dev
+        env
+        export PASSWORD= ${{ secrets.PASSWORD }}
 #
 #        script: |
 
-#          export PASSWORD= ${{ secrets.PASSWORD }}
+
 #          export HOST=${{ secrets.HOST }}
 #          export PORT=${{ secrets.PORT }}
 #          export DJANGO_SETTINGS_MODULE=config.settings.dev
