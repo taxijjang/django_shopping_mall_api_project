@@ -17,6 +17,7 @@ jobs:
     - name: move directory
       run: |
         pwd
+        ls -all
         cd /home/taxijjang/personal/django_shopping_mall_api_project
 
     - name: git checkout dev
