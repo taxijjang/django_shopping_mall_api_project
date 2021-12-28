@@ -15,3 +15,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: whoami
+    - name: pwd
+      with:
+        script: pwd
+    - name: ls
+      with:
+        script: ls -all
