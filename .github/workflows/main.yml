@@ -17,7 +17,7 @@ jobs:
         script: whoami
     - name: pwd
       with:
-        script: pwd
+        run: "pwd"
     - name: ls
       with:
-        script: ls -all
+        script: "ls -all"
