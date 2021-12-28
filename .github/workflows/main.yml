@@ -15,8 +15,10 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          pwd
-          ls -all
+          cd /personal/django_shopping_mall_api_project
+          git config user.name
+          git config user.email
+          
           
 #     - name: move directory
 #       run: |
