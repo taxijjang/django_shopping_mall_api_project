@@ -1,8 +1,7 @@
 name: remote ssh command
 on:
   push:
-    branches: 
-      - dev
+    branches: [dev, master]
 jobs:
   build:
     name: Build
