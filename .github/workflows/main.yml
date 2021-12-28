@@ -17,7 +17,7 @@ jobs:
     - name: move directory
       run: |
         pwd
-        cd /root
+        sudo cd /root
         pwd
         ls -all
         cd /home/taxijjang/personal/django_shopping_mall_api_project
