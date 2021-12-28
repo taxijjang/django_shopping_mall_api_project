@@ -18,6 +18,7 @@ jobs:
       run: |
         pwd
         cd #
+        pwd
         ls -all
         cd /home/taxijjang/personal/django_shopping_mall_api_project
 
