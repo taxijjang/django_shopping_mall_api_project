@@ -15,10 +15,13 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
     - name: move directory
-      run: cd /home/taxijjang/personal/django_shopping_mall_api_project
+      run: cd /taxijjang/personal/django_shopping_mall_api_project
+
     - name: git checkout dev
       run: git checkout dev
+
     - name: git pull
       run: git pull origin dev
+
     - name: docker rebuilding
       run: docker-compose up --build -d
