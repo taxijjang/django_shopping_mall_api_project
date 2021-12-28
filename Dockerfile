@@ -3,9 +3,13 @@ FROM python:3.7.9
 RUN apt-get update
 
 RUN useradd taxijjang
+RUN id
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
+USER taxijjang
+RUN id
 
 RUN mkdir /code
 COPY . /code
