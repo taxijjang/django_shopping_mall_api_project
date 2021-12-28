@@ -19,6 +19,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           pwd
+          pwd
           cd personal/django_shopping_mall_api_project
           git checkout dev
           git config user.name
