@@ -13,10 +13,6 @@ WORKDIR /code
 RUN mkdir /static
 
 RUN pip install --upgrade pip
-
-RUN python -m venv .env
-RUN source .env/bin/activate
-
-RUN pip install -r requirements/requirements-dev.txt
+RUN pip install --user -r requirements/requirements-dev.txt
 
 RUN python manage.py collectstatic --noinput
