@@ -18,6 +18,7 @@ jobs:
           cd /personal/django_shopping_mall_api_project
           git config user.name
           git config user.email
+          ls -all
           
           
 #     - name: move directory
