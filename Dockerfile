@@ -16,5 +16,3 @@ RUN pip install --upgrade pip
 RUN pip install --user -r requirements/requirements-dev.txt
 
 RUN python manage.py collectstatic --noinput
-
-
