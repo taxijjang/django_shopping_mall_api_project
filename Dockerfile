@@ -2,6 +2,10 @@ FROM python:3.7.9
 
 RUN apt-get update
 
+RUN groupadd -g 999 appuser
+RUN useradd -r -u 999 -g appuser appuser
+RUN useradd -r -u 999 -g appuser appuser
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
