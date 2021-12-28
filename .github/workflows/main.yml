@@ -1,8 +1,7 @@
 name: remote ssh command
 on:
   push:
-    branches: 
-      - dev
+    branches: [dev, master]
 jobs:
   build:
     name: Build
@@ -16,6 +15,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+          pwd
           pwd
           cd personal/django_shopping_mall_api_project
           git checkout dev
