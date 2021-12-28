@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/code
       - ./nginx:/etc/nginx/conf.d
-      - ./staticfiles:/static
+      - ./static:/static
     depends_on:
       - django
   django:
