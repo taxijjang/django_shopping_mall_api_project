@@ -13,6 +13,6 @@ WORKDIR /code
 RUN mkdir /static
 
 RUN pip install --upgrade pip
-RUN pip install --user -r requirements/requirements-dev.txt
+RUN pip install -r requirements/requirements-dev.txt
 
 RUN python manage.py collectstatic --noinput
