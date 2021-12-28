@@ -15,6 +15,14 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+#         환경변수 설정
+          export DEV_NAME=shopping-mall-dev
+          export PASSWORD=${{ secrets.PASSWORD }}
+          export HOST=${{ secrets.HOST }}
+          export PORT=${{ secrets.PORT }}
+          export DJANGO_SETTINGS_MODULE=config.settings.dev
+          export USER=${{ secrets.USERNAME }}
+
           cd /home/taxijjang/personal/django_shopping_mall_api_project
           git checkout dev
           git pull origin dev
