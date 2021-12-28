@@ -15,7 +15,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
     - name: move directory
-      run: cd /taxijjang/personal/django_shopping_mall_api_project
+      run: |
+        pwd
+        cd /home/taxijjang/personal/django_shopping_mall_api_project
 
     - name: git checkout dev
       run: git checkout dev
