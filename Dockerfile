@@ -14,10 +14,8 @@ RUN mkdir /static
 
 RUN pip install --upgrade pip
 
-RUN useradd taxijjang
-RUN id
-USER taxijjang
-RUN id
+RUN python -m venv .env
+RUN source .env/bin/activate
 
 RUN pip install -r requirements/requirements-dev.txt
 
