@@ -17,8 +17,8 @@ jobs:
     - name: move directory
       run: cd /home/taxijjang/personal/django_shopping_mall_api_project
     - name: git checkout dev
-        git checkout dev
+      run: git checkout dev
     - name: git pull
-        git pull origin dev
+      run: git pull origin dev
     - name: docker rebuilding
-        docker-compose up --build -d
+      run: docker-compose up --build -d
