@@ -25,7 +25,6 @@ DATABASES = {
     }
 }
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -44,7 +43,3 @@ REST_FRAMEWORK = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
 }
-
-REST_FRAMEWORK.update({
-
-})
