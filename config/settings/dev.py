@@ -1,5 +1,5 @@
 import os
-
+from datetime import timedelta
 from .base import *
 
 DEBUG = True
@@ -33,3 +33,18 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'staticfiles')
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'config.renderers.CustomRenderer',
+    ],
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
+}
+
+REST_FRAMEWORK.update({
+
+})
