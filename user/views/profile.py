@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveUpdateAPIView
 
-from ..models import User
 from ..serializers import ProfileSZ
 
 
