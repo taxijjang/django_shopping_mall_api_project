@@ -9,7 +9,7 @@ from ..serializers import TokenRefreshResponseSerializer
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     @swagger_auto_schema(
         responses={

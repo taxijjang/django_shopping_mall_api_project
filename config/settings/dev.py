@@ -1,5 +1,5 @@
 import os
-
+from datetime import timedelta
 from .base import *
 
 DEBUG = True
@@ -25,7 +25,6 @@ DATABASES = {
     }
 }
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -33,3 +32,25 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'staticfiles')
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'config.renderers.CustomRenderer',
+    ],
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'description': 'Personal API Key authorization',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
