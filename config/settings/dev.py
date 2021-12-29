@@ -43,3 +43,14 @@ REST_FRAMEWORK = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
 }
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'description': 'Personal API Key authorization',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
