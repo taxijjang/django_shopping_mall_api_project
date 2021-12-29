@@ -3,26 +3,25 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveUpdateAPIView
 
-from ..models import User
 from ..serializers import ProfileSZ
 
 
 class UserRetrieveUpdate(RetrieveUpdateAPIView):
     serializer_class = ProfileSZ
+    http_method_names = ['get', 'patch']
 
     def get_object(self):
-        User.objects.get(pk=1)
+        return self.request.user
 
     @swagger_auto_schema(
         responses={
             status.HTTP_200_OK: ProfileSZ})
     def get(self, request, *args, **kwargs):
-        print("ABC")
-        return Response(data='1', status=200)
+        serializer = self.get_serializer(self.get_object())
+        return Response(data=serializer.data, status=200)
 
     @swagger_auto_schema(
         responses={
             status.HTTP_200_OK: ProfileSZ})
     def patch(self, request, *args, **kwargs):
-        print("ABC")
-        return Response(data='1', status=200)
+        return self.partial_update(request, *args, **kwargs)
