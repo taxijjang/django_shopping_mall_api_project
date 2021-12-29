@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /code
-RUN mkdir /code/staticfiles
+RUN mkdir /code/static
 COPY . /code
 WORKDIR /code
 
