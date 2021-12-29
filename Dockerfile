@@ -6,10 +6,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /code
+RUN mkdir /code/staticfiles
 COPY . /code
 WORKDIR /code
-
-RUN mkdir /staticfiles
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements/requirements-dev.txt
