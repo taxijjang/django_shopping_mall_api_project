@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /code
 RUN mkdir /code/static
+RUN mkdir /code/staticfiles
 COPY . /code
 WORKDIR /code
 
