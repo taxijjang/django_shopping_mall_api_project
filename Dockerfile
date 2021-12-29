@@ -9,13 +9,9 @@ RUN mkdir /code
 COPY . /code
 WORKDIR /code
 
-RUN mkdir /static
+RUN mkdir /staticfiles
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements/requirements-dev.txt
+RUN pip install --no-cache-dir -r requirements/requirements-dev.txt
 
 RUN python manage.py collectstatic --noinput
-
-#RUN mkdir -p run
-
-#CMD gunicorn config.wsgi:application --bind unix:/code/run/gunicorn.sock --workers 4 --timeout=60 --log-file=-
