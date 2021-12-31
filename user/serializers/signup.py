@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from ..models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class UserSignupSZ(serializers.ModelSerializer):
@@ -8,3 +10,6 @@ class UserSignupSZ(serializers.ModelSerializer):
         model = User
         fields = ('id', 'name', 'email', 'password')
         read_only_fields = ('id',)
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)
