@@ -19,10 +19,14 @@ schema_view = get_schema_view(
     openapi.Info(
         title="결제프로젝트 API",
         default_version='v1',
-        description="결제 토이 프로젝트",
+        description="각각의 API 테스트를 진행하기 위해서는 login을 진행한 후 생성되는 access token를 아래의 Authorize에 \n"
+                    "Bearer {발급 받은 access token}을 입력해 주세요.\n"
+                    "ex - Bearer eyJ0eXAiOiJKV1QiLC...b0eVGuJMvAvjpk-Qo\n"
+                    "login API를 제외한 나머지는 모두 인증 상태가 완료 된 이후에 사용 가능 합니다.",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="taxijjang@gmail.com"),
         license=openapi.License(name="BSD License"),
+
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
