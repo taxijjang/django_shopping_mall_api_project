@@ -1,20 +1,24 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from ..models import User
 
 
-class ProfileSZ(ModelSerializer):
+class ProfileSZ(serializers.ModelSerializer):
+    id = serializers.IntegerField(help_text='유저 id')
+
     class Meta:
         model = User
-        fields = ('pk', 'email', 'name',)
-        read_only_fields = ('pk', 'email',)
+        fields = ('id', 'email', 'name',)
+        read_only_fields = ('id', 'email',)
 
 
-class PatchProfileSZ(ModelSerializer):
+class PatchProfileSZ(serializers.ModelSerializer):
+    id = serializers.IntegerField(help_text='유저 id')
+
     class Meta:
         model = User
-        fields = ('pk', 'email', 'name',)
-        read_only_fields = ('pk', 'email',)
+        fields = ('id', 'email', 'name',)
+        read_only_fields = ('id', 'email',)
 
     def update(self, instance, validated_data):
         return super(ProfileSZ, self).update(instance, validated_data)

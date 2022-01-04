@@ -15,7 +15,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, name, email, password):
+    def create_superuser(self, email, password, name=None):
         user = self.create_user(
             name=name,
             email=self.normalize_email(email),
@@ -31,8 +31,8 @@ class CustomUserManager(BaseUserManager):
 
 class User(TimestampBaseModel, AbstractBaseUser):
     last_login = None
-    name = models.CharField(max_length=20)
-    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=20, null=True, blank=True, help_text='유저 이름')
+    email = models.EmailField(unique=True, help_text='유저 이메일')
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
