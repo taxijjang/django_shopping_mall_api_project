@@ -13,12 +13,9 @@ class ProductListSZ(serializers.ModelSerializer):
 
 
 class ProductCreateSZ(serializers.ModelSerializer):
-    id = serializers.CharField(required=True, help_text='상품 id')
-    image = serializers.ImageField(required=False, use_url=True)
-
     class Meta:
         model = Product
-        fields = ('id', 'title', 'price', 'image',)
+        fields = ('title', 'price', 'image',)
         read_only_fields = ('id',)
 
     def create(self, validated_data):

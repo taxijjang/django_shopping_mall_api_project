@@ -39,6 +39,9 @@ class ProductListCreateAV(ListCreateAPIView):
 
     @swagger_auto_schema(
         operation_description='상품 등록 API',
+        responses={
+            '201': ProductResponseSZ
+        }
     )
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.POST)
