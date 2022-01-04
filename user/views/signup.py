@@ -1,3 +1,5 @@
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
@@ -13,6 +15,12 @@ class UserSignUpCreateAV(CreateAPIView):
     serializer_class = UserSignupSZ
     permission_classes = [AllowAny, ]
 
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: UserSignupSZ
+        },
+        operation_description='회원 가입 API'
+    )
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 

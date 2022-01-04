@@ -13,8 +13,6 @@ WORKDIR /code
 RUN mkdir /static
 RUN mkdir /staticfiles
 
-RUN mkdir /media
-
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements/requirements-dev.txt
 

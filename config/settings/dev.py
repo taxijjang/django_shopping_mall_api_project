@@ -8,6 +8,7 @@ ALLOWED_HOSTS = ['*']
 
 DEV_APPS = [
     'drf_yasg',
+    'django_seed',
 ]
 
 INSTALLED_APPS += DEV_APPS
@@ -40,9 +41,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_RENDERER_CLASSES': [
-        'config.renderers.CustomRenderer',
-    ],
+    'DEFAULT_PAGINATION_CLASS': 'core.paginations.CustomPagination',
+    'PAGE_SIZE': 10,
     'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
 }
@@ -56,4 +56,7 @@ SWAGGER_SETTINGS = {
             'name': 'Authorization'
         }
     },
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'core.schemas.CustomAutoSchema',
+    # 'DEFAULT_MODEL_RENDERING': 'example',
 }
+

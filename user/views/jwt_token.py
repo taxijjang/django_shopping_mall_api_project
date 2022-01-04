@@ -13,7 +13,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
     @swagger_auto_schema(
         responses={
-            status.HTTP_200_OK: TokenObtainPairResponseSerializer})
+            status.HTTP_200_OK: TokenObtainPairResponseSerializer},
+        operation_description='email, password로 jwt token 발급 API',
+    )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -21,6 +23,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class CustomTokenRefreshView(TokenRefreshView):
     @swagger_auto_schema(
         responses={
-            status.HTTP_200_OK: TokenRefreshResponseSerializer})
+            status.HTTP_200_OK: TokenRefreshResponseSerializer},
+        operation_description='refresh token으로 jwt token 갱신 API',
+    )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
