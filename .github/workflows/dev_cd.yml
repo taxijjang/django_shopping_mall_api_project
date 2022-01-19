@@ -18,6 +18,6 @@ jobs:
           port: ${{ secrets.PORT }}
           timeout: 40s
           script: |
-            pwd |
-            cd personal/django_shopping_mall_api_project/ |
+            ls -all
+            cd personal/django_shopping_mall_api_project/
             docker-compose up -d --force-recreate --build
