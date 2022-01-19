@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - dev
-
 jobs:
   django-build-ssh-action:
     runs-on: ubuntu-latest
@@ -18,4 +17,5 @@ jobs:
           port: ${{ secrets.PORT }}
           timeout: 40s
           script: |
+            whoami
             ./personal/scripts/deploy.sh
