@@ -18,4 +18,6 @@ jobs:
           port: ${{ secrets.PORT }}
           timeout: 40s
           script: |
-            echo "테스트 출력"
+            pwd |
+            cd personal/django_shopping_mall_api_project/ |
+            docker-compose up -d --force-recreate --build
