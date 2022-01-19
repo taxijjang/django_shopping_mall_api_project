@@ -20,4 +20,7 @@ jobs:
           script: |
             ls -all
             cd personal/django_shopping_mall_api_project/
-            docker-compose up -d --force-recreate --build
+            git config user.name taxijjang
+            git config user.email gw9122@naver.com
+            git pull origin dev
+            docker-compose up -d --build
