@@ -1,0 +1,21 @@
+name: DJANGO DEV CD
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  django-build-ssh-action:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME_NOT_ROOT }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          timeout: 40s
+          script: |
+            whoami
+            ./personal/scripts/deploy.sh
