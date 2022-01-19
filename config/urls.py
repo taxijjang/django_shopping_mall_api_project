@@ -16,6 +16,8 @@ urlpatterns = [
     path('users/', include('user.urls')),
     # product
     path('products/', include('products.urls')),
+    # search
+    path('searches/', include('searches.urls')),
 ]
 
 schema_view = get_schema_view(

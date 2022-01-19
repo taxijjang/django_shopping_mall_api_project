@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import ProductListCreateAV, ProductRetrieveUpdateDestroyAV
+from .views import ProductListCreateAV
+from .views import ProductRetrieveUpdateDestroyAV
 
 app_name = 'products'
 
