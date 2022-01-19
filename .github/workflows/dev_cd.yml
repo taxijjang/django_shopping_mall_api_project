@@ -1,12 +1,21 @@
 name: django dev build
 on:
   push:
-    branches: [ dev ]
+    branches:
+      - dev
 
-user: appleboy/ssh-action@master
-with:
-  host: ${{ secrets.HOST }}
-  username: ${{ secrets.USERNAME }}
-  password: ${{ secrets.PASSWORD }}
-  PORT: ${{ secrets.PORT }}
-  script: whoami
+jobs:
+  django-build-ssh-action:
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          timeout: 40s
+          script: |
+            echo "테스트 출력"
