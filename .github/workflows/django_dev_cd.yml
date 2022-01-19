@@ -1,4 +1,4 @@
-name: django dev build
+name: DJANGO DEV CD
 on:
   push:
     branches:
@@ -18,9 +18,4 @@ jobs:
           port: ${{ secrets.PORT }}
           timeout: 40s
           script: |
-            ls -all
-            cd personal/django_shopping_mall_api_project/
-            git config user.name taxijjang
-            git config user.email gw9122@naver.com
-            git pull origin dev
-            docker-compose up -d --build
+            ./personal/scripts/deploy.sh
