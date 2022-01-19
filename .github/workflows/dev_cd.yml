@@ -1,0 +1,12 @@
+name: django dev build
+on:
+  push:
+    branches: [ dev ]
+
+user: appleboy/ssh-action@master
+with:
+  host: ${{ secrets.HOST }}
+  username: ${{ secrets.USERNAME }}
+  password: ${{ secrets.PASSWORD }}
+  PORT: ${{ secrets.PORT }}
+  script: whoami
