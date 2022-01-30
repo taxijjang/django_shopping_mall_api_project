@@ -1,0 +1,1 @@
+from .product import Query as ProductQuery
