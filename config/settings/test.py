@@ -2,15 +2,14 @@ import os
 
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-DEV_APPS = [
-    'drf_yasg',
+TEST_APPS = [
 ]
 
-INSTALLED_APPS += DEV_APPS
+INSTALLED_APPS += TEST_APPS
 
 DATABASES = {
     'default': {

@@ -7,7 +7,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 DEV_APPS = [
-    'drf_yasg',
+
     'django_seed',
 ]
 
