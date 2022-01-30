@@ -26,3 +26,4 @@ Pillow==8.4.0
 elasticsearch==7.16.2
 'strawberry-graphql[debug-server]'
 'uvicorn[standard]'
+strawberry-django-jwt
