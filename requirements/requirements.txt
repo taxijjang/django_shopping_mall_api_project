@@ -10,8 +10,9 @@ django-allauth==0.47.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==5.0.0
 idna==3.3
-drf_yasg
-coverage
+drf-yasg==1.20.0
+coverage==6.3
+django-seed==0.3.1
 mysqlclient==2.1.0
 oauthlib==3.1.1
 pycparser==2.21
