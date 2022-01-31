@@ -24,7 +24,7 @@ jobs:
         HOST: ${{ secrets.HOST }}
         PORT: ${{ secrets.PORT }}
         USER: ${{ secrets.USER }}
-        PASSWORD: ${{ PASSWORD }}
+        PASSWORD: ${{ secrets.PASSWORD }}
         DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
 
       run: |
