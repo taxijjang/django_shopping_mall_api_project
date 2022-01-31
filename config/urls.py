@@ -6,8 +6,12 @@ from django.urls import re_path
 from django.urls import include
 
 from rest_framework import permissions
+from strawberry_django_jwt.decorators import jwt_cookie
+from strawberry_django_jwt.views import StatusHandlingGraphQLView as GQLView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+from config.schema import schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,6 +22,8 @@ urlpatterns = [
     path('products/', include('products.urls')),
     # search
     path('searches/', include('searches.urls')),
+    # graphql
+    re_path(r'^graphql/?$', jwt_cookie(GQLView.as_view(schema=schema))),
 ]
 
 schema_view = get_schema_view(

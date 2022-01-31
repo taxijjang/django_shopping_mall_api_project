@@ -25,13 +25,17 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'drf_yasg',
     'rest_framework',
+    'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'strawberry.django',
+    'strawberry_django_jwt.refresh_token',
 ]
 
 LOCAL_APPS = [
@@ -122,3 +126,8 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'user.User'
 
 SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'strawberry_django_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
