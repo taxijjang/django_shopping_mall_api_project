@@ -21,11 +21,11 @@ jobs:
         pip install -r requirements/requirements-test.txt
     - name: Test with Unittest
       env:
-        HOST: ${{ HOST }}
-        PORT: ${{ PORT }}
-        USER: ${{ USER }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
+        USER: ${{ secrets.USER }}
         PASSWORD: ${{ PASSWORD }}
-        DJANGO_SETTINGS_MODULE: ${{ DJANGO_SETTINGS_MODULE }}
+        DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
 
       run: |
         python manage.py test
