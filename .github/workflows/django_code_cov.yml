@@ -21,7 +21,6 @@ jobs:
         pip install -r requirements/requirements-test.txt
     - name: Test with Unittest
       env:
-        DEV_NAME: ${{ DEV_NAME }}
         HOST: ${{ HOST }}
         PORT: ${{ PORT }}
         USER: ${{ USER }}
