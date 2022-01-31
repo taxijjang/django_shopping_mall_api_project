@@ -31,6 +31,7 @@ jobs:
       run: |
         python manage.py test
 
+#
 #    - name: Set up Python ${{ matrix.python-version }}
 #      uses: actions/setup-python@v2
 #      with:
