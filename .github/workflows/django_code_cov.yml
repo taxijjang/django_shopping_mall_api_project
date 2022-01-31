@@ -26,7 +26,7 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
-        python manage.py test
+        coverage run manage.py test && coverage report --fail-under=95
 
 #
 #    - name: Set up Python ${{ matrix.python-version }}
