@@ -1,0 +1,15 @@
+[run]
+omit =
+    ./.env/*
+    ./config/*
+    ./static/*
+    ./staticfiles/*
+    ./requirements/*
+    ./.github/*
+    ./core/*
+    *__init__*
+    *migrations*
+    *test*
+    *admin*
+    *apps*
+    manage.py
