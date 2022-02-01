@@ -59,4 +59,3 @@ SWAGGER_SETTINGS = {
     'DEFAULT_AUTO_SCHEMA_CLASS': 'core.schemas.CustomAutoSchema',
     # 'DEFAULT_MODEL_RENDERING': 'example',
 }
-
