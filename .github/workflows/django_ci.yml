@@ -27,9 +27,15 @@ jobs:
         
     - name: Run Tests
       run: |
-        coverage run manage.py test --settings=config.settings.test && coverage report
+        coverage run manage.py test --settings=config.settings.test
+        coverage report
+        coverage xml
+        coverage html
         
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v2
       with:
         fail_ci_if_error: true
+        directory: ./htmlcov/
+        files: ./coverage.xml
+        flags: unittests

@@ -15,13 +15,12 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password, name=None):
+    def create_superuser(self, name, email, password):
         user = self.create_user(
             name=name,
             email=self.normalize_email(email),
+            password=password
         )
-        user.set_password(password)
-        user.is_active = True
         user.is_staff = True
         user.is_superuser = True
         user.is_admin = True
@@ -47,8 +46,8 @@ class User(TimestampBaseModel, AbstractBaseUser):
     def __str__(self):
         return self.name
 
-    def has_perm(self, perm, obj=None):
+    def has_perm(self, perm=None, obj=None):
         return self.is_admin
 
-    def has_module_perms(self, app_label):
+    def has_module_perms(self, app_label=None):
         return self.is_admin
