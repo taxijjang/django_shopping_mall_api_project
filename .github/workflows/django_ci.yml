@@ -27,7 +27,10 @@ jobs:
         
     - name: Run Tests
       run: |
-        coverage run manage.py test --settings=config.settings.test && coverage report && coverage xml
+        coverage run manage.py test --settings=config.settings.test
+        coverage report
+        coverage xml
+        coverage html
         
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v2

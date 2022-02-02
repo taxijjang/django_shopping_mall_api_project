@@ -1,1 +1,1 @@
-from .test_user import UserTestCase
+from .test_models import UserModelTestCase
