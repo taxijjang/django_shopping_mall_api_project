@@ -1,6 +1,5 @@
 [run]
 branch = True
-source = django_shopping_mall_api_project/*
 omit =
     ./.env/*
     ./config/*
