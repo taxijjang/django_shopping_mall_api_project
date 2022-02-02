@@ -1,4 +1,22 @@
 [run]
+branch = True
+source = django_shopping_mall_api_project/*
+omit =
+    ./.env/*
+    ./config/*
+    ./static/*
+    ./staticfiles/*
+    ./requirements/*
+    ./.github/*
+    ./core/*
+    *__init__*
+    *migrations*
+    *test*
+    *admin*
+    *apps*
+    manage.py
+
+[report]
 omit =
     ./.env/*
     ./config/*
