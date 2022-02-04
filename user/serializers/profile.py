@@ -21,4 +21,4 @@ class PatchProfileSZ(serializers.ModelSerializer):
         read_only_fields = ('id', 'email',)
 
     def update(self, instance, validated_data):
-        return super(ProfileSZ, self).update(instance, validated_data)
+        return super(PatchProfileSZ, self).update(instance, validated_data)
