@@ -57,3 +57,14 @@ class UserPatchProfileSZTestCase(TestCase):
 
         self.assertEqual(update_user_data.get('name'), self.user.name)
         self.assertEqual(email, self.user.email)
+
+    def test_profile_이메일_변경_불가(self):
+        update_user_data = dict(
+            email='new_test_user@email.com'
+        )
+
+        serializer = PatchProfileSZ(instance=self.user, data=update_user_data, partial=True)
+        self.assertTrue(serializer.is_valid())
+        serializer.save()
+
+        self.assertNotEqual(update_user_data.get('email'), self.user.email)
