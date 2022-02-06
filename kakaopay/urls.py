@@ -5,5 +5,5 @@ from .views import index
 app_name = 'kakaopay'
 
 urlpatterns = [
-    path('', index ),
+    path('', index),
 ]

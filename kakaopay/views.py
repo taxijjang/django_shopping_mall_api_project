@@ -9,7 +9,7 @@ def index(request):
     if request.method == 'POST':
         URL = 'https://kapi.kakao.com/v1/payment/ready'
         headers = {
-            'Authorization': f'KakaoAK {os.environ.get("APP_ADMIN_KEY")}',
+            'Authorization': f'KakaoAK {os.environ.get("KAKAO_APP_ADMIN_KEY")}',
             'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
         }
         params = {
