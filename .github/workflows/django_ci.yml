@@ -32,7 +32,7 @@ jobs:
         mysql version: '5.7'
         mysql database: 'shopping-mall-dev'
         mysql root password: ${{ secrets.PASSWORD }}
-        mysql user: ${{ USERNAME_NOT_ROOT }}
+        mysql user: ${{ secrets.USERNAME_NOT_ROOT }}
         mysql password: ${{ secrets.PASSWORD }}
 
     - name: Set up Python ${{ matrix.python-version }}
