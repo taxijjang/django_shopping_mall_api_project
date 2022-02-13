@@ -4,8 +4,12 @@ import requests
 from django.shortcuts import render
 from django.shortcuts import redirect
 
+from .payment import KakaoPayClient
+
 
 def index(request):
+    kakaopay = KakaoPayClient()
+    
     if request.method == 'POST':
         URL = 'https://kapi.kakao.com/v1/payment/ready'
         headers = {
