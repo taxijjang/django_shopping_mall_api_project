@@ -7,12 +7,13 @@ from kakaopay.payment import KakaoPayClient
 from ..models import Product
 
 
-@decorators.api_view(http_method_names=['POST'])
-def kakaopay_ready(request, *args, **kwargs):
+@decorators.api_view(http_method_names=['GET'])
+def kakaopay_approve(request, *args, **kwargs):
     kakaopay = KakaoPayClient()
     user = request.user
 
+
     product = Product.objects.get(pk=kwargs.get('pk'))
     quantity = request.data.get('quantity', 1)
-    data = kakaopay.ready(user, product, quantity=quantity)
-    return Response(data=data)
+    kakaopay.ready(user, product, quantity=quantity)
+    return Response(data='abc')
