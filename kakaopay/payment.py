@@ -78,7 +78,6 @@ class KakaoPayClient:
         res = requests.post(APPROVE_URL, headers=self.headers, params=params)
         res_data = res.json()
 
-        print(res_data.get('approved_at'), res_data.get('item_name'))
         PurchaseApprovalResult.objects.create(
             purchase=purchase,
             aid=res_data.get('aid'),
@@ -90,4 +89,5 @@ class KakaoPayClient:
             approved_at=res_data.get('approved_at'),
             item_name=res_data.get('item_name')
         )
-        print("approve")
+        purchase.approve = timezone.now()
+        purchase.save()
