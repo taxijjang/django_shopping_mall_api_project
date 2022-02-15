@@ -12,7 +12,7 @@ def kakaopay_ready(request, *args, **kwargs):
     kakaopay = KakaoPayClient()
     user = request.user
 
-    product = Product.objects.get(pk=kwargs.get('pk'))
+    product = Product.objects.get(pk=request.data.get('product_pk'))
     quantity = request.data.get('quantity', 1)
     data = kakaopay.ready(user, product, quantity=quantity)
     return Response(data=data)

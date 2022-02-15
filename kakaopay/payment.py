@@ -10,6 +10,7 @@ from django.db import transaction
 from user.models import User
 from products.models import Product
 from purchases.models import Purchase
+from purchases.models import PurchaseApprovalResult
 
 BASE_URL = 'http://127.0.0.1:8000' if settings.DEBUG else 'http://218.48.14.96'
 
@@ -40,13 +41,13 @@ class KakaoPayClient:
         )
         params = dict(
             cid=self.cid,
-            partner_order_id=self.partner_user_id,
+            partner_order_id=self.partner_order_id,
             partner_user_id=self.partner_user_id,
             item_name=product.title,
             quantity=int(quantity),
             total_amount=int(product.price),
             tax_free_amount=0,
-            approval_url=f'{BASE_URL}{resolve_url("products:kakaopay_approve", pk=product.pk, purchase_pk=purchase.pk)}',
+            approval_url=f'{BASE_URL}{resolve_url("purchases:kakaopay_approve", purchase_pk=purchase.pk)}',
             cancel_url=BASE_URL,
             fail_url=BASE_URL
         )
@@ -77,14 +78,16 @@ class KakaoPayClient:
         res = requests.post(APPROVE_URL, headers=self.headers, params=params)
         res_data = res.json()
 
-
-
-
-    def order(self):
-        pass
-
-    @staticmethod
-    @transaction.atomic
-    def tid(tid: str, user: User, product: Product, purchase: Purchase) -> None:
-        purchase.tid = tid
-        purchase.save()
+        print(res_data.get('approved_at'), res_data.get('item_name'))
+        PurchaseApprovalResult.objects.create(
+            purchase=purchase,
+            aid=res_data.get('aid'),
+            payment_type=res_data.get('payment_method_type'),
+            total_amount=res_data.get('amount').get('total'),
+            tax_free_amount=res_data.get('amount').get('tax_free'),
+            vat_amount=res_data.get('amount').get('vat'),
+            ready_at=res_data.get('created_at'),
+            approved_at=res_data.get('approved_at'),
+            item_name=res_data.get('item_name')
+        )
+        print("approve")

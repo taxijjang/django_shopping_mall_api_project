@@ -1,2 +1,2 @@
-from .approve import purchase_approve
-from .ready import purchase_ready
+from .approve import kakaopay_approve
+from .ready import kakaopay_ready

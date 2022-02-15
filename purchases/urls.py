@@ -5,6 +5,6 @@ from . import views
 app_name = 'purchases'
 
 urlpatterns = [
-    path('ready/', views.purchase_ready, name='ready'),
-    path('approve/', views.purchase_approve, name='approve')
+    path('ready/', views.kakaopay_ready, name='kakaopay_ready'),
+    path('approve/<int:purchase_pk>/', views.kakaopay_approve, name='kakaopay_approve')
 ]

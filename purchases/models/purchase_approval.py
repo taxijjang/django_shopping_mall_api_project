@@ -11,7 +11,7 @@ PAY_TYPE_CHOICES = (
 class PurchaseApprovalResult(TimestampBaseModel):
     purchase = models.ForeignKey('Purchase', on_delete=models.PROTECT, verbose_name='주문번호')
     aid = models.CharField(max_length=50, verbose_name='요청 고유 변호')
-    payment_type = models.IntegerField(choices=PAY_TYPE_CHOICES, verbose_name='결제 수단')
+    payment_type = models.CharField(max_length=5, verbose_name='결제 수단')
     # amount
     total_amount = models.IntegerField(verbose_name='결제총액')
     tax_free_amount = models.IntegerField(verbose_name='상품 비과세 금액')
@@ -20,5 +20,5 @@ class PurchaseApprovalResult(TimestampBaseModel):
     card_info = models.TextField(null=True, blank=True)
     item_name = models.CharField(max_length=100)
 
-    ready_requested_at = models.DateTimeField()
+    ready_at = models.DateTimeField()
     approved_at = models.DateTimeField()
