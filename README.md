@@ -9,5 +9,4 @@
 
 
 ### DB Diagram
-![image](https://user-images.githubusercontent.com/29100894/154602357-138d88cc-bc44-4fa2-9e6b-5bfb9b5b2ac3.png)
-
+![image](https://user-images.githubusercontent.com/29100894/154602478-712c097c-e242-4a01-9107-8b08d8207ba2.png)
