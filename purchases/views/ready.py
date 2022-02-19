@@ -1,4 +1,3 @@
-import requests
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
@@ -8,7 +7,6 @@ from rest_framework.response import Response
 
 from kakaopay.payment import KakaoPayClient
 from products.models import Product
-
 
 
 @swagger_auto_schema(

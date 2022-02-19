@@ -65,8 +65,8 @@ class KakaoPayClient:
         return data
 
     @transaction.atomic
-    def approve(self, pg_token: str, purchase_pk: int):
-        purchase = Purchase.objects.get(pk=purchase_pk)
+    def approve(self, user: User, pg_token: str, purchase_pk: int):
+        purchase = Purchase.objects.get(pk=purchase_pk, user=User)
         params = dict(
             cid=self.cid,
             tid=purchase.tid,
