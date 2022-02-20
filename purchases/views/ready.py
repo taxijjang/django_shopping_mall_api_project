@@ -3,6 +3,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework import status
 from rest_framework import decorators
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from kakaopay.payment import KakaoPayClient
@@ -41,6 +42,7 @@ from products.models import Product
     }
 )
 @decorators.api_view(http_method_names=['POST'])
+@decorators.permission_classes(permission_classes=AllowAny)
 def kakaopay_ready(request):
     kakaopay = KakaoPayClient()
     user = request.user
