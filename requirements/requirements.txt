@@ -30,3 +30,6 @@ elasticsearch==7.16.2
 strawberry-graphql[debug-server]
 uvicorn[standard]
 strawberry-django-jwt
+celery==5.2.3
+django-celery-results==2.2.0
+django-redis==5.2.0

@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'strawberry.django',
     'strawberry_django_jwt.refresh_token',
+    'django_celery_results',
 ]
 
 LOCAL_APPS = [
