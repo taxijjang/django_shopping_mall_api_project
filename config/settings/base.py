@@ -45,11 +45,12 @@ LOCAL_APPS = [
     'products',
     'purchases',
     'searches',
+    'kakaopay',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-MIDDLEWARE = [
+DJANGO_MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +59,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+LOCAL_MIDDLEWARE = [
+    'core.middlewares.ErrorMiddleWare',
+]
+
+MIDDLEWARE = DJANGO_MIDDLEWARE + LOCAL_MIDDLEWARE
 
 ROOT_URLCONF = 'config.urls'
 
@@ -127,6 +134,8 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'user.User'
 
 SITE_ID = 1
+
+APPEND_SLASH = True
 
 AUTHENTICATION_BACKENDS = [
     'strawberry_django_jwt.backends.JSONWebTokenBackend',

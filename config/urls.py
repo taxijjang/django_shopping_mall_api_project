@@ -22,6 +22,10 @@ urlpatterns = [
     path('products/', include('products.urls')),
     # search
     path('searches/', include('searches.urls')),
+    # kakaopay
+    path('kakaopay/', include('kakaopay.urls')),
+    # purchase
+    path('purchases/', include('purchases.urls')),
     # graphql
     re_path(r'^graphql/?$', jwt_cookie(GQLView.as_view(schema=schema))),
 ]
