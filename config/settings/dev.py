@@ -7,7 +7,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 DEV_APPS = [
-
     'django_seed',
 ]
 
@@ -37,6 +36,16 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis_service:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -59,3 +68,17 @@ SWAGGER_SETTINGS = {
     'DEFAULT_AUTO_SCHEMA_CLASS': 'core.schemas.CustomAutoSchema',
     # 'DEFAULT_MODEL_RENDERING': 'example',
 }
+
+# CELERY SETTINGS
+CELERY_TIMEZONE = 'Asia/Seoul'
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json', 'yaml']
+CELERY_RESULT_BACKEND = 'django-db'
+
+RABBITMQ_USER = os.environ.get('RABBITMQ_USER', 'guest')
+RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', 'guest')
+RABBITMQ_QUEUE_EXPIRES = 300.0
+RABBITMQ_MESSAGE_EXPIRES = RABBITMQ_QUEUE_EXPIRES
