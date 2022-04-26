@@ -142,3 +142,6 @@ AUTHENTICATION_BACKENDS = [
     'strawberry_django_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
