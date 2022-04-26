@@ -11,6 +11,7 @@ class DiaryListCreateView(generics.ListCreateAPIView):
 
 
 class DiaryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    http_method_names = ['patch', 'delete']
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
     pagination_class = None
