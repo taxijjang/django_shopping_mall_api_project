@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'purchases',
     'searches',
     'kakaopay',
+    'diary',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
