@@ -6,18 +6,16 @@ from core.models import TimestampBaseModel
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, name, email, password):
+    def create_user(self, email, password):
         user = self.model(
-            name=name,
             email=self.normalize_email(email)
         )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, name, email, password):
+    def create_superuser(self, email, password):
         user = self.create_user(
-            name=name,
             email=self.normalize_email(email),
             password=password
         )
