@@ -8,7 +8,7 @@ User = get_user_model()
 class UserSignupSZ(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name', 'email',)
+        fields = ('id', 'username', 'email',)
         read_only_fields = ('id',)
 
     def create(self, validated_data):

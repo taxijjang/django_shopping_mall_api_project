@@ -16,19 +16,7 @@ from config.schema import schema
 urlpatterns = [
     path('admin/', admin.site.urls),
     # api
-    path("api/", include("api.urls")),
-    # user
-    path('users/', include('user.urls')),
-    # product
-    path('products/', include('products.urls')),
-    # search
-    path('searches/', include('searches.urls')),
-    # kakaopay
-    path('kakaopay/', include('kakaopay.urls')),
-    # purchase
-    path('purchases/', include('purchases.urls')),
-    # diaries
-    path('diaries/', include('diary.urls')),
+    path("api/", include("api.urls"), name="api"),
     # graphql
     re_path(r'^graphql/?$', jwt_cookie(GQLView.as_view(schema=schema))),
 ]

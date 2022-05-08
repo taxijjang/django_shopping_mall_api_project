@@ -8,7 +8,7 @@ class ProfileSZ(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'name',)
+        fields = ('id', 'email', 'username',)
         read_only_fields = ('id', 'email',)
 
 
@@ -17,7 +17,7 @@ class PatchProfileSZ(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'name',)
+        fields = ('id', 'email', 'username',)
         read_only_fields = ('id', 'email',)
 
     def update(self, instance, validated_data):

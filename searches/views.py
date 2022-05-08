@@ -31,19 +31,19 @@ class SearchListView(ListAPIView):
         query = self.request.GET.get('query', '')
         return Product.objects.filter(title__icontains=query)
 
-    @swagger_auto_schema(
-        operation_description='상품 검색 목록 API',
-        manual_parameters=[
-            query,
-            openapi.Parameter(
-                'Authorization',
-                openapi.IN_HEADER,
-                description="Bearer {token}",
-                type=openapi.TYPE_STRING
-            )
-        ],
-        paginator_inspectors=[CustomPaginatorInspectorClass],
-    )
+    # @swagger_auto_schema(
+    #     operation_description='상품 검색 목록 API',
+    #     manual_parameters=[
+    #         query,
+    #         openapi.Parameter(
+    #             'Authorization',
+    #             openapi.IN_HEADER,
+    #             description="Bearer {token}",
+    #             type=openapi.TYPE_STRING
+    #         )
+    #     ],
+    #     paginator_inspectors=[CustomPaginatorInspectorClass],
+    # )
     def get(self, request, *args, **kwargs):
         page = self.paginate_queryset(self.get_queryset())
         serializer = self.get_serializer(page, many=True)

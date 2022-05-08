@@ -10,7 +10,6 @@ django-allauth==0.47.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==5.0.0
 idna==3.3
-drf-yasg==1.20.0
 coverage==6.3
 django-seed==0.3.1
 mysqlclient==2.1.0
@@ -34,3 +33,4 @@ celery==5.2.3
 django-celery-results==2.2.0
 django-redis==5.2.0
 django-cors-headers==3.11.0
+drf-spectacular==0.22.1

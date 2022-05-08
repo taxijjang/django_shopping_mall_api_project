@@ -6,18 +6,18 @@ from core.models import TimestampBaseModel
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, name, email, password):
+    def create_user(self, username, email, password):
         user = self.model(
-            name=name,
+            username=username,
             email=self.normalize_email(email)
         )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, name, email, password):
+    def create_superuser(self, username, email, password):
         user = self.create_user(
-            name=name,
+            username=username,
             email=self.normalize_email(email),
             password=password
         )
@@ -30,7 +30,7 @@ class CustomUserManager(BaseUserManager):
 
 class User(TimestampBaseModel, AbstractBaseUser):
     last_login = None
-    name = models.CharField(max_length=20, null=True, blank=True, help_text='유저 이름')
+    username = models.CharField(max_length=20, null=True, blank=True, help_text='유저 이름')
     email = models.EmailField(unique=True, help_text='유저 이메일')
     password = models.CharField(max_length=128)
 
