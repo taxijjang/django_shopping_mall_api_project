@@ -47,15 +47,12 @@ def seven_eleven_store():
 
     seven_eleven_products = list()
     # 모든 상품 스크롤
-    # for element in driver.find_elements(By.CSS_SELECTOR, "#actFrm > div.cont_body > div.wrap_tab > ul > li > a"):
     for sale_type, value in sale_products.items():
         print(f"---------------------{sale_type} - {value} ----------------------- ")
         element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a"))
         )
-        # element = driver.find_element(By.CSS_SELECTOR,
-        #                               f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a")
         time.sleep(2)
         element.send_keys(Keys.ENTER)
         time.sleep(2)
@@ -64,7 +61,6 @@ def seven_eleven_store():
                 element = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
                 )
-                # element = driver.find_element(By.CSS_SELECTOR, '#listUl > li.btn_more > a')
                 time.sleep(2)
                 element.send_keys(Keys.ENTER)
                 time.sleep(2)
