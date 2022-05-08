@@ -15,7 +15,8 @@ from config.schema import schema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    # api
+    path("api/", include("api.urls")),
     # user
     path('users/', include('user.urls')),
     # product
