@@ -1,6 +1,13 @@
 from django.contrib import admin
 
 from .models import Product
+from .models import Store
+
+
+@admin.register(Store)
+class Store(admin.ModelAdmin):
+    list_display = ("title",)
+    fields = ("title",)
 
 
 @admin.register(Product)

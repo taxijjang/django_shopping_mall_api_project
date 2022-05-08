@@ -46,28 +46,28 @@ CACHES = {
     }
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'core.paginations.CustomPagination',
-    'PAGE_SIZE': 10,
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+#     'DEFAULT_PAGINATION_CLASS': 'core.paginations.CustomPagination',
+#     'PAGE_SIZE': 10,
+#     'ACCESS_TOKEN_LIFETIME': timedelta(days=999),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=999),
+# }
 
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'api_key': {
-            'type': 'apiKey',
-            'description': 'Personal API Key authorization',
-            'in': 'header',
-            'name': 'Authorization'
-        }
-    },
-    'DEFAULT_AUTO_SCHEMA_CLASS': 'core.schemas.CustomAutoSchema',
-    # 'DEFAULT_MODEL_RENDERING': 'example',
-}
+# SWAGGER_SETTINGS = {
+#     'SECURITY_DEFINITIONS': {
+#         'api_key': {
+#             'type': 'apiKey',
+#             'description': 'Personal API Key authorization',
+#             'in': 'header',
+#             'name': 'Authorization'
+#         }
+#     },
+#     'DEFAULT_AUTO_SCHEMA_CLASS': 'core.schemas.CustomAutoSchema',
+#     # 'DEFAULT_MODEL_RENDERING': 'example',
+# }
 
 # CELERY SETTINGS
 CELERY_TIMEZONE = 'Asia/Seoul'

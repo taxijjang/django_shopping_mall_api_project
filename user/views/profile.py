@@ -13,7 +13,7 @@ from ..serializers import ProfileSZ
 
 
 class UserRetrieveUpdate(RetrieveUpdateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = ProfileSZ
     http_method_names = ['get', 'patch']
 

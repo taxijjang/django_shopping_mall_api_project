@@ -2,6 +2,7 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
@@ -48,23 +49,20 @@ def seven_eleven_store():
     # 모든 상품 스크롤
     for sale_type, value in sale_products.items():
         print(f"---------------------{sale_type} - {value} ----------------------- ")
-        # element = WebDriverWait(driver, 10).until(
-        #     EC.presence_of_element_located(
-        #         (By.CSS_SELECTOR, f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a"))
-        # )
-        element = driver.find_element(By.CSS_SELECTOR,
-                                      f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a")
+        element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a"))
+        )
         time.sleep(2)
-        element.click()
+        element.send_keys(Keys.ENTER)
         time.sleep(2)
         try:
             while True:
                 element = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
                 )
-                # element = driver.find_element(By.CSS_SELECTOR, '#listUl > li.btn_more > a')
                 time.sleep(2)
-                element.click()
+                element.send_keys(Keys.ENTER)
                 time.sleep(2)
 
         except Exception:
@@ -87,5 +85,3 @@ def seven_eleven_store():
 
 if __name__ == '__main__':
     seven_eleven_store()
-
-# javascript: fncMore('1');

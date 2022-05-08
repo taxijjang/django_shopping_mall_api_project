@@ -13,5 +13,5 @@ urlpatterns = [
     path('signup/', UserSignUpCreateAV.as_view(), name='signup'),
     path('login/', CustomTokenObtainPairView.as_view(), name='login'),
     path('login/refresh/', CustomTokenRefreshView.as_view(), name='login_refresh'),
-    path('test/', celery_test_view),
+    # path('test/', celery_test_view),
 ]
