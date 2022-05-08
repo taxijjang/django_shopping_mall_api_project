@@ -1,2 +1,2 @@
 from .product import ProductListSerializer
-from .store import StoreListSerializer
+# from .store import StoreListSerializer

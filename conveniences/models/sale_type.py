@@ -7,13 +7,15 @@ class SaleType(TimestampBaseModel):
     ONE_PLUS_ONE = "1+1"
     TWO_PLUS_ONE = "2+1"
     THREE_PLUS_ONE = "3+1"
-    SALE_PRODUCT = "sale_product"
-    PRESENT_PRODUCT = 'present_product'
+    FOUR_PLUS_ONE = "4+1"
+    SALE_PRODUCT = "할인상품"
+    PRESENT_PRODUCT = '증정상품'
 
     SALE_TYPE_CHOICES = (
         (ONE_PLUS_ONE, ONE_PLUS_ONE),
         (TWO_PLUS_ONE, TWO_PLUS_ONE),
         (THREE_PLUS_ONE, THREE_PLUS_ONE),
+        (FOUR_PLUS_ONE, FOUR_PLUS_ONE),
         (SALE_PRODUCT, SALE_PRODUCT),
         (PRESENT_PRODUCT, PRESENT_PRODUCT),
     )

@@ -1,2 +1,2 @@
 from .product import ProductListView
-from .store import StoreListView
+# from .store import StoreListView

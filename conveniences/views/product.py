@@ -7,7 +7,20 @@ from ..serializers import ProductListSerializer
 
 class ProductListView(generics.ListAPIView):
     """
-    편의점 할인 상품 정보를 제공하는 API
+    ### 할인 타입
+    - 1+1
+    - 2+1
+    - 3+1
+    - 4+1
+    - 할인상품
+    - 증정상품
+
+    ### 편의점 종류
+    - cu
+    - emart24
+    - seven_eleven
+    - gs25
+    - ministop
     """
     permission_classes = (permissions.AllowAny,)
     queryset = Product.objects.all()
@@ -17,6 +30,7 @@ class ProductListView(generics.ListAPIView):
         queryset = super().get_queryset()
         store = self.request.GET.get("store")
         title = self.request.GET.get("title")
+        order = self.request.GET.get("order")
         if store:
             queryset = queryset.filter(conveniences_store=store)
         if title:
@@ -43,7 +57,7 @@ class ProductListView(generics.ListAPIView):
                 "sale_type",
                 OpenApiTypes.STR,
                 OpenApiParameter.QUERY,
-                description="할인 종류",
+                description="할인 타입",
             ),
         ],
     )
