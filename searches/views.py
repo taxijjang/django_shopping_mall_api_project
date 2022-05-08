@@ -1,12 +1,9 @@
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import FormParser
 from rest_framework.parsers import MultiPartParser
 from rest_framework.generics import ListAPIView
 from elasticsearch import Elasticsearch
 
 from core.paginations import CustomPagination
-from core.paginations import CustomPaginatorInspectorClass
 
 from products.models import Product
 from products.serializers import ProductListSZ
@@ -20,12 +17,12 @@ class SearchListView(ListAPIView):
     parser_classes = (MultiPartParser, FormParser)
 
     # swagger query parameter
-    query = openapi.Parameter(
-        'query', openapi.IN_QUERY,
-        description='상품 검색할 내용',
-        required=False,
-        type=openapi.TYPE_STRING
-    )
+    # query = openapi.Parameter(
+    #     'query', openapi.IN_QUERY,
+    #     description='상품 검색할 내용',
+    #     required=False,
+    #     type=openapi.TYPE_STRING
+    # )
 
     def get_queryset(self):
         query = self.request.GET.get('query', '')

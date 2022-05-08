@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 
 from core.paginations import CustomPagination
-from core.paginations import CustomPaginatorInspectorClass
+# from core.paginations import CustomPaginatorInspectorClass
 from ..models import Product
 from ..serializers import ProductListSZ
 from ..serializers import ProductCreateSZ
