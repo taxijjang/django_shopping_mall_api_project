@@ -1,3 +1,6 @@
+from django.utils import timezone
+from django.db.models import Q
+
 from rest_framework import generics, permissions
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
@@ -30,13 +33,22 @@ class ProductListView(generics.ListAPIView):
         queryset = super().get_queryset()
         store = self.request.GET.get("store")
         title = self.request.GET.get("title")
+        sale_type = self.request.GET.get("sale_type")
         order = self.request.GET.get("order")
-        year = self.request.GET.get("year")
-        month = self.request.GET.get("month")
+        year = self.request.GET.get("year", timezone.now().year)
+        month = self.request.GET.get("month", timezone.now().month)
         if store:
             queryset = queryset.filter(conveniences_store=store)
         if title:
             queryset = queryset.filter(title__icontains=title)
+
+        if sale_type:
+            queryset = queryset.filter(sale_type=sale_type)
+        # 날짜 필터링
+        queryset = queryset.filter(
+            Q(year=year)
+            & Q(month=month)
+        )
 
         return queryset
 
