@@ -1,6 +1,5 @@
 import re
 import time
-import requests
 from datetime import date
 
 from selenium import webdriver
@@ -39,59 +38,50 @@ def seven_eleven_store():
     """
     seven_eleven 상품
     """
-    BASE_URL = "https://www.7-eleven.co.kr"
-    seven_eleven_store_url = f"{BASE_URL}/product/presentList.asp"
+    BASE_URL = "https://www.7-eleven.co.kr/product/presentList.asp"
     driver = get_driver()
-    driver.get(seven_eleven_store_url)
+    driver.get(BASE_URL)
+    driver.implicitly_wait(10)
 
-    sale_products = {
-        "1+1": 1,
-        "2+1": 2,
-        "sale_product": 3,
-        "present_product": 4,
-    }
-
-    seven_eleven_products = list()
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located(
+            (By.CSS_SELECTOR, f"#actFrm > div.cont_body > div.wrap_tab > ul > li > a"))
+    )
+    product_category_elements = driver.find_elements(By.CSS_SELECTOR,
+                                                     f"#actFrm > div.cont_body > div.wrap_tab > ul > li > a")
     # 모든 상품 스크롤
-    for sale_type, value in sale_products.items():
-        print(f"---------------------{sale_type} - {value} ----------------------- ")
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located(
-                (By.CSS_SELECTOR, f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a"))
-        )
+    for product_category_element in product_category_elements:
+        sale_type = product_category_element.accessible_name
         driver.implicitly_wait(10)
-        element.send_keys(Keys.ENTER)
+        product_category_element.send_keys(Keys.ENTER)
         driver.implicitly_wait(10)
         time.sleep(1)
         try:
             while True:
-                element = WebDriverWait(driver, 10).until(
+                more_element = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
                 )
                 driver.implicitly_wait(10)
-                element.send_keys(Keys.ENTER)
+                more_element.send_keys(Keys.ENTER)
                 driver.implicitly_wait(10)
                 time.sleep(1)
 
         except Exception:
             print("모든 상품 페이지 스크롤 완료")
-
         for product in driver.find_elements(By.CSS_SELECTOR, '#listUl > li > div'):
             title, price = product.text.split('\n')
             price = re.sub(r'[^0-9]', '', price)
             image = f"{BASE_URL}{BeautifulSoup(product.get_attribute('innerHTML'), 'html.parser').find('img').get('src')}"
-            print(sale_type, title, price, image)
-            seven_eleven_products.append(
-                Product.objects.get_or_create(
-                    year=date.today().year,
-                    month=date.today().month,
-                    store=Product.SEVEN_ELEVEN,
-                    title=title,
-                    price=price,
-                    image=image,
-                    sale_type=sale_type,
-                ),
+            p, _ = Product.objects.get_or_create(
+                year=date.today().year,
+                month=date.today().month,
+                store=Product.SEVEN_ELEVEN,
+                title=title,
+                price=price,
+                image=image,
+                sale_type=sale_type,
             )
+
     driver.close()
 
 
@@ -102,6 +92,7 @@ def emart_store():
     BASE_URL = "https://emart24.co.kr/product/eventProduct.asp"
     driver = get_driver()
     driver.get(BASE_URL)
+    driver.implicitly_wait(10)
 
     # 모든 상품 리스트
     while True:
@@ -136,7 +127,6 @@ def emart_store():
                     price, discount_price = price.split('→')
                 if sale_type == '2':
                     sale_type = Product.PRESENT_PRODUCT
-                print(sale_type, title, price, image)
                 Product.objects.get_or_create(
                     year=date.today().year,
                     month=date.today().month,
@@ -148,7 +138,6 @@ def emart_store():
                     sale_type=sale_type,
                 )
             except Exception:
-                print(sale_type, title, price, image)
                 pass
 
         next_icon_element = WebDriverWait(driver, 10).until(
@@ -169,6 +158,7 @@ def cu_store():
     BASE_URL = "https://cu.bgfretail.com/event/plus.do?category=event&depth2=1&sf=N"
     driver = get_driver()
     driver.get(BASE_URL)
+    driver.implicitly_wait(10)
     while True:
         try:
             next_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
@@ -176,10 +166,8 @@ def cu_store():
             driver.implicitly_wait(10)
             next_element.send_keys(Keys.ENTER)
             driver.implicitly_wait(10)
-            print(next_element)
             time.sleep(1)
         except Exception:
-            print("상품 조회 완료")
             break
 
     elements = WebDriverWait(driver, 10).until(
@@ -205,6 +193,8 @@ def gs25_store():
     BASE_URL = "http://gs25.gsretail.com/gscvs/ko/products/event-goods#;"
     driver = get_driver()
     driver.get(BASE_URL)
+    driver.implicitly_wait(10)
+
     WebDriverWait(driver, 10).until(EC.presence_of_element_located(
         (By.CSS_SELECTOR, "#contents > div.cnt > div.cnt_section.mt50 > div > div > ul > li:nth-child(4) > span > a")
         # (By.XPATH, "#contents > div.cnt > div.cnt_section.mt50 > div > div > ul > li:nth-child(4) > a")
@@ -232,9 +222,8 @@ def gs25_store():
             driver.implicitly_wait(10)
             time.sleep(1)
             for product_element in product_elements:
-                print(product_element)
                 product_sale_type = product_element.find_element(By.CSS_SELECTOR, "div > div > p > span").get_attribute(
-                        "innerHTML")
+                    "innerHTML")
                 Product.objects.get_or_create(
                     year=date.today().year,
                     month=date.today().month,
@@ -244,7 +233,7 @@ def gs25_store():
                                      "innerHTML")),
                     store=Product.GS25,
                     image=product_element.find_element(By.CSS_SELECTOR, "div > p.img > img").get_attribute("src"),
-                    sale_type= Product.PRESENT_PRODUCT if product_sale_type == "덤증정" else product_sale_type
+                    sale_type=Product.PRESENT_PRODUCT if product_sale_type == "덤증정" else product_sale_type
                 )
             # 다음 페이지로 이동
             driver.implicitly_wait(10)
@@ -258,20 +247,15 @@ def gs25_store():
             driver.implicitly_wait(10)
             time.sleep(2)
         except Exception:
-            print("상품 조회 완료")
             break
     driver.close()
-    # elements = WebDriverWait(driver, 10).until(
-    #     EC.presence_of_element_located(
-    #         (By.CSS_SELECTOR, "")
-    #     )
-    # )
 
 
 def main():
-    # seven_eleven_store()
-    # emart_store()
+    seven_eleven_store()
+    emart_store()
     cu_store()
+    gs25_store()
 
 
 if __name__ == '__main__':

@@ -31,10 +31,13 @@ class ProductListView(generics.ListAPIView):
         store = self.request.GET.get("store")
         title = self.request.GET.get("title")
         order = self.request.GET.get("order")
+        year = self.request.GET.get("year")
+        month = self.request.GET.get("month")
         if store:
             queryset = queryset.filter(conveniences_store=store)
         if title:
             queryset = queryset.filter(title__icontains=title)
+
         return queryset
 
     @extend_schema(
