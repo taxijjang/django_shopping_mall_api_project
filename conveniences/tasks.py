@@ -1,5 +1,6 @@
 import re
 import time
+import requests
 from datetime import date
 
 from selenium import webdriver
@@ -58,18 +59,19 @@ def seven_eleven_store():
             EC.presence_of_element_located(
                 (By.CSS_SELECTOR, f"#actFrm > div.cont_body > div.wrap_tab > ul > li:nth-child({value}) > a"))
         )
-        time.sleep(2)
+        driver.implicitly_wait(10)
         element.send_keys(Keys.ENTER)
-        time.sleep(2)
+        driver.implicitly_wait(10)
+        time.sleep(1)
         try:
             while True:
                 element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
                 )
-                time.sleep(2)
+                driver.implicitly_wait(10)
                 element.send_keys(Keys.ENTER)
-                time.sleep(2)
-                print(1111)
+                driver.implicitly_wait(10)
+                time.sleep(1)
 
         except Exception:
             print("모든 상품 페이지 스크롤 완료")
@@ -83,13 +85,14 @@ def seven_eleven_store():
                 Product.objects.get_or_create(
                     year=date.today().year,
                     month=date.today().month,
-                    conveniences_store=Product.SEVEN_ELEVEN,
+                    store=Product.SEVEN_ELEVEN,
                     title=title,
                     price=price,
                     image=image,
                     sale_type=sale_type,
                 ),
             )
+    driver.close()
 
 
 def emart_store():
@@ -100,9 +103,7 @@ def emart_store():
     driver = get_driver()
     driver.get(BASE_URL)
 
-    seven_eleven_products = list()
     # 모든 상품 리스트
-
     while True:
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located(
@@ -139,7 +140,7 @@ def emart_store():
                 Product.objects.get_or_create(
                     year=date.today().year,
                     month=date.today().month,
-                    conveniences_store=Product.EMART,
+                    store=Product.EMART,
                     title=title,
                     price=price,
                     discount_price=discount_price,
@@ -161,11 +162,116 @@ def emart_store():
             break
         next_icon_element.send_keys(Keys.ENTER)
         time.sleep(2)
+    driver.close()
+
+
+def cu_store():
+    BASE_URL = "https://cu.bgfretail.com/event/plus.do?category=event&depth2=1&sf=N"
+    driver = get_driver()
+    driver.get(BASE_URL)
+    while True:
+        try:
+            next_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "#contents > div.relCon > div > div > div.prodListBtn-w > a")))
+            driver.implicitly_wait(10)
+            next_element.send_keys(Keys.ENTER)
+            driver.implicitly_wait(10)
+            print(next_element)
+            time.sleep(1)
+        except Exception:
+            print("상품 조회 완료")
+            break
+
+    elements = WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located(
+            (By.CSS_SELECTOR, "#contents > div.relCon > div > ul > li"))
+    )
+    for element in elements:
+        title, price, _, sale_type = element.text.split('\n')
+        image = element.find_element(By.CSS_SELECTOR, "a > div.prod_wrap > div.prod_img > img").get_attribute("src")
+        Product.objects.get_or_create(
+            year=date.today().year,
+            month=date.today().month,
+            title=title,
+            price=re.sub(r'[^0-9]', '', price),
+            store=Product.CU,
+            image=image,
+            sale_type=sale_type,
+        )
+    driver.close()
+
+
+def gs25_store():
+    BASE_URL = "http://gs25.gsretail.com/gscvs/ko/products/event-goods#;"
+    driver = get_driver()
+    driver.get(BASE_URL)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "#contents > div.cnt > div.cnt_section.mt50 > div > div > ul > li:nth-child(4) > span > a")
+        # (By.XPATH, "#contents > div.cnt > div.cnt_section.mt50 > div > div > ul > li:nth-child(4) > a")
+    ))
+    all_product_element = driver.find_element(By.CSS_SELECTOR,
+                                              "#contents > div.cnt > div.cnt_section.mt50 > div > div > ul > li:nth-child(4) > span > a")
+    driver.implicitly_wait(10)
+    all_product_element.send_keys(Keys.ENTER)
+    driver.implicitly_wait(10)
+    time.sleep(1)
+
+    sale_type_dict = {
+        Product.ONE_PLUS_ONE: Product.ONE_PLUS_ONE,
+        "덤증정": Product.PRESENT_PRODUCT,
+    }
+    while True:
+        try:
+            # 상품 크롤링
+            WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located(
+                (By.CSS_SELECTOR, "#contents > div.cnt > div.cnt_section.mt50 > div > div > div:nth-child(3) > ul > li")
+            ))
+            driver.implicitly_wait(10)
+            product_elements = driver.find_elements(By.CSS_SELECTOR,
+                                                    "#contents > div.cnt > div.cnt_section.mt50 > div > div > div:nth-child(3) > ul > li")
+            driver.implicitly_wait(10)
+            time.sleep(1)
+            for product_element in product_elements:
+                print(product_element)
+                product_sale_type = product_element.find_element(By.CSS_SELECTOR, "div > div > p > span").get_attribute(
+                        "innerHTML")
+                Product.objects.get_or_create(
+                    year=date.today().year,
+                    month=date.today().month,
+                    title=product_element.find_element(By.CSS_SELECTOR, "div > p.tit").get_attribute('innerHTML'),
+                    price=re.sub(r'[^0-9]', '',
+                                 product_element.find_element(By.CSS_SELECTOR, "div > p.price > span").get_attribute(
+                                     "innerHTML")),
+                    store=Product.GS25,
+                    image=product_element.find_element(By.CSS_SELECTOR, "div > p.img > img").get_attribute("src"),
+                    sale_type= Product.PRESENT_PRODUCT if product_sale_type == "덤증정" else product_sale_type
+                )
+            # 다음 페이지로 이동
+            driver.implicitly_wait(10)
+            next_element = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
+                (By.CSS_SELECTOR,
+                 "#contents > div.cnt > div.cnt_section.mt50 > div > div > div:nth-child(9) > div > a.next")
+            ))
+
+            driver.implicitly_wait(10)
+            next_element.send_keys(Keys.ENTER)
+            driver.implicitly_wait(10)
+            time.sleep(2)
+        except Exception:
+            print("상품 조회 완료")
+            break
+    driver.close()
+    # elements = WebDriverWait(driver, 10).until(
+    #     EC.presence_of_element_located(
+    #         (By.CSS_SELECTOR, "")
+    #     )
+    # )
 
 
 def main():
-    seven_eleven_store()
-    emart_store()
+    # seven_eleven_store()
+    # emart_store()
+    cu_store()
 
 
 if __name__ == '__main__':
