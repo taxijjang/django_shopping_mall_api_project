@@ -251,6 +251,8 @@ def gs25_store():
     driver.close()
 
 
+def ministop_store():
+
 def main():
     seven_eleven_store()
     emart_store()
