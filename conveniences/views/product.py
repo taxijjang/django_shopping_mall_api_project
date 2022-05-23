@@ -38,7 +38,7 @@ class ProductListView(generics.ListAPIView):
         year = self.request.GET.get("year", timezone.now().year)
         month = self.request.GET.get("month", timezone.now().month)
         if store:
-            queryset = queryset.filter(conveniences_store=store)
+            queryset = queryset.filter(store=store)
         if title:
             queryset = queryset.filter(title__icontains=title)
 
