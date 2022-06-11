@@ -32,7 +32,7 @@ services:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
     depends_on:
       - rabbitmq
-      - celery_worker
+#      - celery_worker
       - redis
 
   redis:
@@ -57,48 +57,48 @@ services:
     volumes:
       - .:/code
 
-  celery_beat:
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: "celery -A config beat --loglevel=info"
-    volumes:
-      - .:/code
-    environment:
-      - DEV_NAME=${DEV_NAME}
-      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-      - PASSWORD=${PASSWORD}
-      - HOST=${HOST}
-      - USER=${USER}
-      - PORT=${PORT}
-      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
-    depends_on:
-      - rabbitmq
-
-  celery_worker:
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: "celery -A config worker --loglevel=info"
-    volumes:
-    - .:/code
-    environment:
-      - DEV_NAME=${DEV_NAME}
-      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-      - PASSWORD=${PASSWORD}
-      - HOST=${HOST}
-      - USER=${USER}
-      - PORT=${PORT}
-      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
-    depends_on:
-      - rabbitmq
-
-  flower:
-    image: mher/flower
-    environment:
-      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
-      - FLOWER_PORT=5555
-    ports:
-      - 5555:5555
+#  celery_beat:
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    command: "celery -A config beat --loglevel=info"
+#    volumes:
+#      - .:/code
+#    environment:
+#      - DEV_NAME=${DEV_NAME}
+#      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+#      - PASSWORD=${PASSWORD}
+#      - HOST=${HOST}
+#      - USER=${USER}
+#      - PORT=${PORT}
+#      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
+#    depends_on:
+#      - rabbitmq
+#
+#  celery_worker:
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    command: "celery -A config worker --loglevel=info"
+#    volumes:
+#    - .:/code
+#    environment:
+#      - DEV_NAME=${DEV_NAME}
+#      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+#      - PASSWORD=${PASSWORD}
+#      - HOST=${HOST}
+#      - USER=${USER}
+#      - PORT=${PORT}
+#      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
+#    depends_on:
+#      - rabbitmq
+#
+#  flower:
+#    image: mher/flower
+#    environment:
+#      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq
+#      - FLOWER_PORT=5555
+#    ports:
+#      - 5555:5555
