@@ -17,8 +17,6 @@ urlpatterns = [
     path("api/", include("api.urls"), name="api"),
     # graphql
     re_path(r'^graphql/?$', jwt_cookie(GQLView.as_view(schema=schema))),
-    # prometheus
-    path('', include('django_prometheus.urls')),
 ]
 
 # schema_view = get_schema_view(
