@@ -16,4 +16,4 @@ RUN mkdir /staticfiles
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements/requirements-dev.txt
 
-RUN python manage.py collectstatic --noinput
+#RUN python manage.py collectstatic --noinput

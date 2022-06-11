@@ -252,6 +252,8 @@ def gs25_store():
 
 
 def ministop_store():
+    pass
+
 
 def main():
     seven_eleven_store()
