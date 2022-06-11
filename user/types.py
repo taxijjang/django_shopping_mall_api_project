@@ -3,7 +3,6 @@ import typing
 from django.contrib.auth import get_user_model
 
 import strawberry
-from strawberry.django import auto
 from strawberry.django import auth
 
 from . import models
@@ -11,7 +10,7 @@ from . import models
 
 @strawberry.django.type(get_user_model())
 class User:
-    id: auto
+    id: int
     name: str
     email: str
     password: str

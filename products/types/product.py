@@ -2,14 +2,13 @@ import decimal
 import typing
 
 import strawberry
-from strawberry.django import auto
 
 from .. import models
 
 
 @strawberry.django.type(models.Product)
 class Product:
-    id: auto
+    id: int
     title: str
     price: decimal.Decimal
     image: str
