@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = [
     'strawberry_django_jwt.refresh_token',
     'django_celery_results',
     'corsheaders',
+    'django_prometheus',
 ]
 
 LOCAL_APPS = [
@@ -56,6 +57,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 DJANGO_MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -64,13 +66,12 @@ DJANGO_MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-LOCAL_MIDDLEWARE = [
     'core.middlewares.ErrorMiddleWare',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
-MIDDLEWARE = DJANGO_MIDDLEWARE + LOCAL_MIDDLEWARE
+
+MIDDLEWARE = DJANGO_MIDDLEWARE
 
 ROOT_URLCONF = 'config.urls'
 
