@@ -46,3 +46,6 @@ class Product(TimestampBaseModel):
 
     def __str(self):
         return f'{self.title} - {self.price}'
+
+    class Meta:
+        ordering = ['-pk']
