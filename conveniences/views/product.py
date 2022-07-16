@@ -111,14 +111,6 @@ class ProductListView(generics.ListAPIView):
                 description="할인 월\n\nex) 1",
             ),
         ],
-        # responses={
-        #     200: inline_serializer(
-        #         name="conveniences store api response",
-        #         fields={
-        #             "page_data":
-        #         }
-        #     )
-        # }
     )
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
