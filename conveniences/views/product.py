@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.db.models import Q
 
 from rest_framework import generics, permissions
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes, inline_serializer
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
 from ..models import Product
 from ..serializers import ProductListSerializer
