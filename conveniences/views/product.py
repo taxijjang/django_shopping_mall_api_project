@@ -59,6 +59,7 @@ class ProductListView(generics.ListAPIView):
         )
         if order:
             queryset = queryset.order_by(order)
+        queryset = queryset.exclude(sale_type=Product.SALE_PRODUCT).exclude(sale_type=Product.PRESENT_PRODUCT)
         return queryset
 
     @extend_schema(
@@ -89,7 +90,8 @@ class ProductListView(generics.ListAPIView):
                 OpenApiTypes.STR,
                 OpenApiParameter.QUERY,
                 description="할인 타입",
-                enum=["1+1", "2+1", "3+1", "4+1", "할인상품", "증정상품"],
+                # enum=["1+1", "2+1", "3+1", "4+1", "할인상품", "증정상품"],
+                enum=["1+1", "2+1", "3+1", "4+1"],
             ),
             OpenApiParameter(
                 "order",
