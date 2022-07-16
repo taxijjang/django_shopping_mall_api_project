@@ -38,12 +38,13 @@ class CustomPagination(PageNumberPagination):
         self.request = request
         return list(self.page)
 
-    def page_data_format(self, next, previous, page, size):
+    def page_data_format(self, next, previous, page, size, max_page):
         page_data = dict(
             next=next,
             previous=previous,
             page=page,
             size=size,
+            max_page=max_page,
         )
         return page_data
 
@@ -54,6 +55,7 @@ class CustomPagination(PageNumberPagination):
                 previous=self.get_previous_link(),
                 page=self.request.GET.get('page', 1),
                 size=self.page.paginator.per_page,
+                max_page=self.page.paginator.num_pages,
             )
         else:
             page_data = self.page_data_format(
@@ -61,6 +63,7 @@ class CustomPagination(PageNumberPagination):
                 previous=None,
                 page=1,
                 size=10,
+                max_page=0,
             )
         return Response(OrderedDict((
             ('page_data', page_data),
@@ -90,6 +93,10 @@ class CustomPagination(PageNumberPagination):
                             'type': 'integer',
                             'example': 10,
                         },
+                        'max_page': {
+                            'type': 'integer',
+                            'example': 10,
+                        }
                     },
                 },
                 'data': schema
