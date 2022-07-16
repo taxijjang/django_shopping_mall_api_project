@@ -74,6 +74,18 @@ class ProductListView(generics.ListAPIView):
                 OpenApiParameter.QUERY,
                 description="할인 타입",
             ),
+            OpenApiParameter(
+                "year",
+                OpenApiTypes.STR,
+                OpenApiParameter.QUERY,
+                description="할인 연도",
+            ),
+            OpenApiParameter(
+                "month",
+                OpenApiTypes.STR,
+                OpenApiParameter.QUERY,
+                description="할인 월",
+            ),
         ],
     )
     def get(self, request, *args, **kwargs):
