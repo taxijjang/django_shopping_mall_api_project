@@ -51,7 +51,7 @@ LOCAL_APPS = [
     'searches',
     'kakaopay',
     'diary',
-    'conveniences',
+    'conveniences.apps.ConveniencesConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

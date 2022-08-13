@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 
-from .models import Product
+from conveniences.models.product import Product
 
 
 def get_driver():  # git에서 다운받은 SELENIUM_LAYER.zip을 사용했다면, 아래 설정 중 아무것도 건드리지 않는다.
@@ -18,19 +18,19 @@ def get_driver():  # git에서 다운받은 SELENIUM_LAYER.zip을 사용했다�
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--window-size=1280x1696')
-    chrome_options.add_argument('--user-data-dir=/tmp/user-data')
-    chrome_options.add_argument('--hide-scrollbars')
-    chrome_options.add_argument('--enable-logging')
-    chrome_options.add_argument('--log-level=0')
-    chrome_options.add_argument('--v=99')
-    chrome_options.add_argument('--single-process')
-    chrome_options.add_argument('--data-path=/tmp/data-path')
-    chrome_options.add_argument('--ignore-certificate-errors')
-    chrome_options.add_argument('--homedir=/tmp')
-    chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-    driver = webdriver.Chrome('/Users/taxijjang/personal_git_dir/convenience_store_discount/webdriver/chromedriver',
-                              chrome_options=chrome_options)
+    # chrome_options.add_argument('--window-size=1280x1696')
+    # chrome_options.add_argument('--user-data-dir=/tmp/user-data')
+    # chrome_options.add_argument('--hide-scrollbars')
+    # chrome_options.add_argument('--enable-logging')
+    # chrome_options.add_argument('--log-level=0')
+    # chrome_options.add_argument('--v=99')
+    # chrome_options.add_argument('--single-process')
+    # chrome_options.add_argument('--data-path=/tmp/data-path')
+    # chrome_options.add_argument('--ignore-certificate-errors')
+    # chrome_options.add_argument('--homedir=/tmp')
+    # chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+    # driver = webdriver.Chrome('/Users/taxijjang/personal-git-dir/django_shopping_mall_api_project/conveniences/webdriver/chromedriver', chrome_options=chrome_options)
     return driver
 
 
@@ -50,37 +50,38 @@ def seven_eleven_store():
     product_category_elements = driver.find_elements(By.CSS_SELECTOR,
                                                      f"#actFrm > div.cont_body > div.wrap_tab > ul > li > a")
     # 모든 상품 스크롤
-    for product_category_element in product_category_elements:
-        sale_type = product_category_element.accessible_name
-        driver.implicitly_wait(10)
-        product_category_element.send_keys(Keys.ENTER)
-        driver.implicitly_wait(10)
-        time.sleep(1)
-        try:
-            while True:
-                more_element = WebDriverWait(driver, 10).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
-                )
-                driver.implicitly_wait(10)
-                more_element.send_keys(Keys.ENTER)
-                driver.implicitly_wait(10)
-                time.sleep(1)
-
-        except Exception:
-            print("모든 상품 페이지 스크롤 완료")
-        for product in driver.find_elements(By.CSS_SELECTOR, '#listUl > li > div'):
-            title, price = product.text.split('\n')
-            price = re.sub(r'[^0-9]', '', price)
-            image = f"{BASE_URL}{BeautifulSoup(product.get_attribute('innerHTML'), 'html.parser').find('img').get('src')}"
-            p, _ = Product.objects.get_or_create(
-                year=date.today().year,
-                month=date.today().month,
-                store=Product.SEVEN_ELEVEN,
-                title=title,
-                price=price,
-                image=image,
-                sale_type=sale_type,
+    # for product_category_element in product_category_elements:
+    product_category_element = product_category_elements[1]
+    sale_type = product_category_element.accessible_name
+    driver.implicitly_wait(10)
+    product_category_element.send_keys(Keys.ENTER)
+    driver.implicitly_wait(10)
+    time.sleep(1)
+    try:
+        while True:
+            more_element = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, '#listUl > li.btn_more > a'))
             )
+            driver.implicitly_wait(10)
+            more_element.send_keys(Keys.ENTER)
+            driver.implicitly_wait(10)
+            time.sleep(3)
+
+    except Exception:
+        print("모든 상품 페이지 스크롤 완료")
+    for product in driver.find_elements(By.CSS_SELECTOR, '#listUl > li > div'):
+        title, price = product.text.split('\n')
+        price = re.sub(r'[^0-9]', '', price)
+        image = f"{BASE_URL}{BeautifulSoup(product.get_attribute('innerHTML'), 'html.parser').find('img').get('src')}"
+        p, _ = Product.objects.get_or_create(
+            year=date.today().year,
+            month=date.today().month,
+            store=Product.SEVEN_ELEVEN,
+            title=title,
+            price=price,
+            image=image.replace("https", "http"),
+            sale_type=sale_type,
+        )
 
     driver.close()
 
@@ -134,7 +135,7 @@ def emart_store():
                     title=title,
                     price=price,
                     discount_price=discount_price,
-                    image=image,
+                    image=image.replace("https", "http"),
                     sale_type=sale_type,
                 )
             except Exception:
@@ -183,7 +184,7 @@ def cu_store():
             title=title,
             price=re.sub(r'[^0-9]', '', price),
             store=Product.CU,
-            image=image,
+            image=image.replace("https", "http"),
             sale_type=sale_type,
         )
     driver.close()
@@ -232,7 +233,7 @@ def gs25_store():
                                  product_element.find_element(By.CSS_SELECTOR, "div > p.price > span").get_attribute(
                                      "innerHTML")),
                     store=Product.GS25,
-                    image=product_element.find_element(By.CSS_SELECTOR, "div > p.img > img").get_attribute("src"),
+                    image=str(product_element.find_element(By.CSS_SELECTOR, "div > p.img > img").get_attribute("src")).replace("https", "http"),
                     sale_type=Product.PRESENT_PRODUCT if product_sale_type == "덤증정" else product_sale_type
                 )
             # 다음 페이지로 이동

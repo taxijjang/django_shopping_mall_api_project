@@ -49,3 +49,4 @@ class Product(TimestampBaseModel):
 
     class Meta:
         ordering = ['-pk']
+        app_label = "conveniences"
