@@ -39,6 +39,7 @@ def seven_eleven_store():
     seven_eleven 상품
     """
     BASE_URL = "https://www.7-eleven.co.kr/product/presentList.asp"
+    IMAGE_BASE_URL = "https://www.7-eleven.co.kr"
     driver = get_driver()
     driver.get(BASE_URL)
     driver.implicitly_wait(10)
@@ -72,7 +73,7 @@ def seven_eleven_store():
     for product in driver.find_elements(By.CSS_SELECTOR, '#listUl > li > div'):
         title, price = product.text.split('\n')
         price = re.sub(r'[^0-9]', '', price)
-        image = f"{BASE_URL}{BeautifulSoup(product.get_attribute('innerHTML'), 'html.parser').find('img').get('src')}"
+        image = f"{IMAGE_BASE_URL}{BeautifulSoup(product.get_attribute('innerHTML'), 'html.parser').find('img').get('src')}"
         p, _ = Product.objects.get_or_create(
             year=date.today().year,
             month=date.today().month,
@@ -223,6 +224,11 @@ def gs25_store():
             driver.implicitly_wait(10)
             time.sleep(1)
             for product_element in product_elements:
+                try:
+                    img = str(product_element.find_element(By.CSS_SELECTOR, "div > p.img > img").get_attribute("src")).replace("https", "http")
+                except Exception as e:
+                    img = ""
+
                 product_sale_type = product_element.find_element(By.CSS_SELECTOR, "div > div > p > span").get_attribute(
                     "innerHTML")
                 Product.objects.get_or_create(
@@ -233,7 +239,7 @@ def gs25_store():
                                  product_element.find_element(By.CSS_SELECTOR, "div > p.price > span").get_attribute(
                                      "innerHTML")),
                     store=Product.GS25,
-                    image=str(product_element.find_element(By.CSS_SELECTOR, "div > p.img > img").get_attribute("src")).replace("https", "http"),
+                    image=img,
                     sale_type=Product.PRESENT_PRODUCT if product_sale_type == "덤증정" else product_sale_type
                 )
             # 다음 페이지로 이동
@@ -247,7 +253,8 @@ def gs25_store():
             next_element.send_keys(Keys.ENTER)
             driver.implicitly_wait(10)
             time.sleep(2)
-        except Exception:
+        except Exception as ex:
+            print(ex)
             break
     driver.close()
 
